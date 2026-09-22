@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Pricing() {
   return (
-    <Section>
+    <Section id="mechir">
       <Reveal>
         <SectionTitle>{pricing.title}</SectionTitle>
 

@@ -18,7 +18,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "scroll-mt-8 px-5 py-16 sm:px-6 sm:py-20",
+        "scroll-mt-20 px-5 py-16 sm:px-6 sm:py-20",
         muted && "bg-muted/60",
         className,
       )}

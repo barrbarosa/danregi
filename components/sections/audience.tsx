@@ -4,21 +4,21 @@ import { audience } from "@/content/he";
 
 export function Audience() {
   return (
-    <Section muted>
+    <Section id="kahal" muted>
       <SectionTitle>{audience.title}</SectionTitle>
       <SectionLead>{audience.lead}</SectionLead>
 
-      <div className="mt-8 grid gap-4">
+      <div className="mt-10 grid gap-10 sm:grid-cols-3">
         {audience.cards.map((card, index) => (
           <Reveal key={card.id} delay={index * 0.05}>
-            <article className="bg-background border-input rounded-lg border p-6">
-              <h3 className="font-heading text-lg font-semibold">
+            <div>
+              <h3 className="font-heading text-xl font-bold leading-snug">
                 {card.title}
               </h3>
-              <p className="text-muted-foreground mt-3 leading-relaxed">
+              <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
                 {card.body}
               </p>
-            </article>
+            </div>
           </Reveal>
         ))}
       </div>

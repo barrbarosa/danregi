@@ -4,7 +4,7 @@ import { process } from "@/content/he";
 
 export function Process() {
   return (
-    <Section muted>
+    <Section id="tahalich" muted>
       <SectionTitle>{process.title}</SectionTitle>
 
       <ol className="mt-8 grid gap-6">

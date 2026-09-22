@@ -4,7 +4,7 @@ import { about } from "@/content/he";
 
 export function About() {
   return (
-    <Section muted>
+    <Section id="alay" muted>
       <Reveal>
         <SectionTitle>{about.title}</SectionTitle>
         {/* TODO (לפני פרסום): להוסיף תמונת פורטרט אם תסופק (siteConfig.portraitSrc). */}

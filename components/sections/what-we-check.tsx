@@ -4,7 +4,7 @@ import { whatWeCheck } from "@/content/he";
 
 export function WhatWeCheck() {
   return (
-    <Section>
+    <Section id="bedika">
       <SectionTitle>{whatWeCheck.title}</SectionTitle>
       <SectionLead>{whatWeCheck.lead}</SectionLead>
 

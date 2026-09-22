@@ -10,7 +10,7 @@ import { faq } from "@/content/he";
 
 export function Faq() {
   return (
-    <Section muted>
+    <Section id="faq" muted>
       <Reveal>
         <SectionTitle>{faq.title}</SectionTitle>
 
