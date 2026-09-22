@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# דף נחיתה — בדיקת קרקע ופגישת ייעוץ
 
-## Getting Started
+דף נחיתה בעברית (RTL) לשירות ייעוץ קרקע של דן רג׳יניאנו.
+Next.js App Router, TypeScript, Tailwind, shadcn/ui, React Hook Form ו-Zod.
+ללא דאטאבייס: הפנייה מועברת ל-endpoint חיצוני.
 
-First, run the development server:
+## הפעלה
 
 ```bash
+npm install
+cp .env.example .env.local   # ולמלא את המשתנים
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| פקודה | מה היא עושה |
+|---|---|
+| `npm run dev` | שרת פיתוח |
+| `npm test` | בדיקות הסכמה ונתיב ה-API |
+| `npm run build` | בניית פרודקשן |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | בדיקת טיפוסים |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## משתני סביבה
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| משתנה | תפקיד |
+|---|---|
+| `INQUIRY_ENDPOINT_URL` | כתובת היעד שאליו מועברת הפנייה. חובה. בלעדיו הטופס מחזיר שגיאת תצורה ולא מדמה הצלחה. |
+| `INQUIRY_ENDPOINT_TOKEN` | טוקן אימות אופציונלי, נשלח ככותרת `Authorization: Bearer`. |
 
-## Learn More
+שני הערכים נשארים בשרת ולעולם אינם מגיעים לדפדפן.
 
-To learn more about Next.js, take a look at the following resources:
+## יעד בדיקה מקומי
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+עד שיתקבל חוזה ממשק אמיתי, `app/api/mock/route.ts` משמש כיעד בדיקה. חסום בפרודקשן.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+INQUIRY_ENDPOINT_URL=http://localhost:3000/api/mock?scenario=ok
+```
 
-## Deploy on Vercel
+| scenario | תגובת היעד | מה המשתמש רואה |
+|---|---|---|
+| `ok` | 200 | הפרטים התקבלו |
+| `error` | 500 | השליחה לא הושלמה |
+| `reject` | 400 | השליחה לא הושלמה |
+| `slow` | משתהה מעבר ל-timeout | לא הצלחנו לאמת שהפנייה התקבלה |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+בנוסף: כתובת יעד ריקה מחזירה שגיאת תצורה, ויעד שאינו זמין (ECONNREFUSED) מסווג ככשל ודאי.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## מבנה
+
+| נתיב | תפקיד |
+|---|---|
+| `content/he.ts` | כל הקופי של הדף במקום אחד |
+| `lib/site-config.ts` | פרטי עסק, מחיר ומיתוג. כאן נמצאים ממלאי המקום |
+| `lib/inquiry-schema.ts` | סכמת Zod משותפת ללקוח ולשרת |
+| `lib/payload.ts` | בניית ה-JSON ליעד לפי חוזה ה-PRD |
+| `lib/phone.ts` | נרמול טלפון ל-E.164. שרת בלבד |
+| `app/api/inquiries/route.ts` | ולידציה בשרת והעברה ליעד |
+
+## מה חסר לפני פרסום
+
+המקומות מסומנים בקוד ב-`TODO`.
+
+- כתובת ה-endpoint האמיתית וחוזה הממשק, כולל תמיכת idempotency
+- ספק סליקה. כל עוד `siteConfig.paymentEnabled` הוא `false` לא מוצג בדף כפתור תשלום
+- טלפון, דוא״ל, שם עסק ומספר עוסק ב-`lib/site-config.ts`
+- לוגו ותמונת פורטרט, אם יסופקו
+- נוסחי מדיניות פרטיות ותנאי שירות. הדפים קיימים כשלד ומסומנים `noindex`
+- אישור בעל השירות לנוסח "חשוב לדעת" שב-`content/he.ts`
+- דומיין לצורך `metadataBase` ותמונת שיתוף
+- העלאת מסמכים. לא מוצגת כיכולת פעילה עד שיוגדרו סוגים, גדלים ותמיכת היעד

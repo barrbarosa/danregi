@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# תיעוד משתני הסביבה כן נשמר בגיט
+!.env.example
+
+# מסמכי מקור פנימיים. נשארים מקומית ואינם מפורסמים בריפו הציבורי.
+PRD_Land_Consulatation.txt
+land-assessment-landing-page-hebrew.txt
