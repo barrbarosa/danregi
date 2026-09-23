@@ -35,16 +35,11 @@ export function SiteFooter() {
           </p>
         )}
 
-        <p className="flex flex-wrap gap-x-4 gap-y-1">
+        <p>
           <Link href="/privacy" className="underline underline-offset-4">
             {footer.privacyLabel}
           </Link>
-          <Link href="/terms" className="underline underline-offset-4">
-            {footer.termsLabel}
-          </Link>
         </p>
-
-        <p className="text-xs">{footer.policyNote}</p>
       </div>
     </footer>
   );

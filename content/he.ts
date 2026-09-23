@@ -179,9 +179,7 @@ export const disclaimer = {
 };
 
 export const footer = {
-  policyNote: "נוסחי מדיניות הפרטיות ותנאי השירות טרם אושרו לפרסום.",
   privacyLabel: "מדיניות פרטיות",
-  termsLabel: "תנאי שירות",
 };
 
 export const metadataCopy = {
